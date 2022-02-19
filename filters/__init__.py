@@ -1,9 +1,7 @@
-from aiogram import Dispatcher
-
 from loader import dp
-# from .is_admin import AdminFilter
-
+from .user_in_base import UserInBase
+from .user_with_account import UserWithAccount
 
 if __name__ == "filters":
-    # dp.filters_factory.bind(AdminFilter)
-    pass
+    dp.filters_factory.bind(UserInBase)
+    dp.filters_factory.bind(UserWithAccount)

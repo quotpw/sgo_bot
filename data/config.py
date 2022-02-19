@@ -1,10 +1,11 @@
-from environs import Env
+from . import configurator
 
-# Теперь используем вместо библиотеки python-dotenv библиотеку environs
-env = Env()
-env.read_env()
+BOT_TOKEN = configurator.get_data('telegram', 'token')
 
-BOT_TOKEN = env.str("BOT_TOKEN")  # Забираем значение типа str
-ADMINS = env.list("ADMINS")  # Тут у нас будет список из админов
-IP = env.str("ip")  # Тоже str, но для айпи адреса хоста
-
+MYSQL_DATA = {
+    'host': configurator.get_data('MySQL', 'host'),
+    'port': int(configurator.get_data('MySQL', 'port')),
+    'user': configurator.get_data('MySQL', 'user'),
+    'password': configurator.get_data('MySQL', 'password'),
+    'db_name': configurator.get_data('MySQL', 'database')
+}
