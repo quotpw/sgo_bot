@@ -42,7 +42,7 @@ async def deleted_homework(lesson: dict, account: dict, old_value: str):
 
 
 async def lesson_handler(lesson: dict, account: dict):
-    homework_cache = await database.get_homework(class_meeting_id=lesson['classmeetingId'])
+    homework_cache = await database.get_homework(account_id=account['id'], class_meeting_id=lesson['classmeetingId'])
 
     have_homework = False
     if lesson.get('assignments'):
@@ -51,18 +51,23 @@ async def lesson_handler(lesson: dict, account: dict):
                 have_homework = True
                 if not homework_cache:
                     await database.create_homework(
+                        account['id'],
                         lesson['classmeetingId'],
                         assigment['assignmentName'],
                         lesson['day']
                     )
                     await new_homework(lesson, account, assigment)  # notify
                 elif assigment['assignmentName'] != homework_cache['value']:
-                    await database.update_homework_value(homework_cache['id'], assigment['assignmentName'])
-                    await edited_homework(lesson, account, assigment, homework_cache['value'])
+                    await database.update_homework_value(
+                        account['id'],
+                        homework_cache['id'],
+                        assigment['assignmentName']
+                    )
+                    await edited_homework(lesson, account, assigment, homework_cache['value'])  # notify
 
     if homework_cache and not have_homework:
         await database.delete_homeworks(id=homework_cache['id'])
-        await deleted_homework(lesson, account, homework_cache['value'])
+        await deleted_homework(lesson, account, homework_cache['value'])  # notify
 
 
 async def main():

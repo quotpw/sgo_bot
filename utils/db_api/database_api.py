@@ -134,16 +134,16 @@ class Sql:
             _return=AnswerType.none
         )
 
-    async def create_homework(self, classmeetingId, value, date):
+    async def create_homework(self, account_id, classmeetingId, value, date):
         await self.query(
-            "INSERT INTO homeworks(class_meeting_id, value, date) VALUES(?, ?, ?)",
-            [classmeetingId, value, date],
+            "INSERT INTO homeworks(account_id,class_meeting_id, value, date) VALUES(?, ?, ?, ?)",
+            [account_id, classmeetingId, value, date],
             _return=AnswerType.none
         )
 
-    async def update_homework_value(self, homework_id, value):
+    async def update_homework_value(self, account_id, homework_id, value):
         await self.query(
-            "UPDATE homeworks SET value = ? WHERE id = ?",
-            [value, homework_id],
+            "UPDATE homeworks SET value = ? WHERE id = ? AND account_id = ?",
+            [value, homework_id, account_id],
             _return=AnswerType.none
         )
