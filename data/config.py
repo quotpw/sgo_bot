@@ -9,3 +9,9 @@ MYSQL_DATA = {
     'password': configurator.get_data('MySQL', 'password'),
     'db_name': configurator.get_data('MySQL', 'database')
 }
+
+
+class SGO:
+    RATE_LIMIT = int(configurator.get_data('Sgo', 'rate-limit'))
+    PROXY = configurator.get_data('Sgo', 'proxy')
+    PROXY_SCHEME = configurator.get_data('Sgo', 'proxy-scheme')

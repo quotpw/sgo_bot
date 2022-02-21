@@ -53,6 +53,12 @@ class Sql:
             fetchone=True
         )
 
+    async def get_users(self, **kwargs):
+        return await self.query(
+            "SELECT * FROM users",
+            where=kwargs
+        )
+
     async def create_user(self, user_id):
         await self.query(
             "INSERT INTO users(user_id) VALUES(?)",
@@ -80,6 +86,12 @@ class Sql:
             _return=AnswerType.last_row_id
         )
 
+    async def get_accounts(self, **kwargs):
+        return await self.query(
+            "SELECT * FROM accounts",
+            where=kwargs
+        )
+
     async def update_account_session(self, account_id, session):
         await self.query(
             "UPDATE accounts SET session = ? WHERE id = ?",
@@ -98,5 +110,33 @@ class Sql:
         await self.query(
             "DELETE FROM accounts",
             where=kwargs,
+            _return=AnswerType.none
+        )
+
+    async def get_homework(self, **kwargs):
+        return await self.query(
+            "SELECT * FROM homeworks",
+            where=kwargs,
+            fetchone=True
+        )
+
+    async def delete_homeworks(self, **kwargs):
+        await self.query(
+            "DELETE FROM homeworks",
+            where=kwargs,
+            _return=AnswerType.none
+        )
+
+    async def create_homework(self, classmeetingId, value, date):
+        await self.query(
+            "INSERT INTO homeworks(class_meeting_id, value, date) VALUES(?, ?, ?)",
+            [classmeetingId, value, date],
+            _return=AnswerType.none
+        )
+
+    async def update_homework_value(self, homework_id, value):
+        await self.query(
+            "UPDATE homeworks SET value = ? WHERE id = ?",
+            [value, homework_id],
             _return=AnswerType.none
         )

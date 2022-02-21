@@ -11,7 +11,10 @@ def get_config_parser():
 
 def get_data(section, option):
     parser = get_config_parser()
-    return parser.get(section, option)
+    try:
+        return parser.get(section, option)
+    except:
+        return None
 
 
 def set_data(section, option, value):

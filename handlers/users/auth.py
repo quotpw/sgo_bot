@@ -157,10 +157,9 @@ async def set_password_text(message: types.Message, state: FSMContext):
             'org_type': data['org_type']['id'],
             'org_id': data['org_id']['id'],
             'username': data['username'],
-            'password': md5(message.text.encode()).hexdigest(),
+            'password': md5(message.text.encode('cp1251')).hexdigest(),
             'session': None
         }
-    await state.finish()
     try:
         account_id = await database.get_account(
             org_id=tmp_account['org_id'], username=tmp_account['username'], password=tmp_account['password']
@@ -177,17 +176,19 @@ async def set_password_text(message: types.Message, state: FSMContext):
                 obj.account['password'],
                 obj.account['session']
             )
+            await state.finish()
         else:
             account_id = account_id['id']
         await database.update_user_account_id(message.chat.id, account_id)
+        await state.finish()
         await start_with_account(message)
     except LoginError:
         await bot.send_message(
             message.chat.id,
             f'Не получилось зайти в аккаунт!\n'
-            f'Повторите процедуру с начала!\n'
-            f'/auth'
+            f'Введите логин от sgo.rso23.ru!'
         )
+        await SetupAccount.username.set()
     except Exception as err:
         print(err)
         await bot.send_message(

@@ -13,6 +13,7 @@ from utils.sgo_api.proxy import Proxy
 from utils.db_api import database
 from aiohttp import CookieJar, ClientSession
 from .exceptions import LoginError
+from data.config import SGO
 
 SGO_URL = 'https://sgo.rso23.ru/'
 
@@ -26,6 +27,9 @@ class Sgo(AsyncObject):
         self.account = account
         if isinstance(self.account.get('session'), str):
             self.account['session'] = json.loads(self.account['session'])
+        if proxy is None:
+            proxy = SGO.PROXY
+            proxy_scheme = SGO.PROXY_SCHEME
 
         if proxy is not None:
             self.proxy = Proxy()
@@ -35,8 +39,9 @@ class Sgo(AsyncObject):
         # init session
         cookie_jar = None
         if self.account.get('session') is not None:
-            cookie_jar = CookieJar(quote_cookie=False)
-            cookie_jar.update_cookies({'ESRNSec': self.account['session']['ESRNSec']})
+            if self.account['session'].get('cookies') is not None:
+                cookie_jar = CookieJar(quote_cookie=False)
+                cookie_jar.update_cookies(self.account['session']['cookies'])
 
         self.session = ClientSession(
             SGO_URL,
@@ -97,10 +102,9 @@ class Sgo(AsyncObject):
             return False
 
         tmp_session = await auth_resp.json()
+        tmp_session['cookies'] = {}
         for cookie in self.session.cookie_jar:
-            if cookie.key == 'ESRNSec':
-                tmp_session['ESRNSec'] = cookie.value
-                break
+            tmp_session['cookies'][cookie.key] = cookie.value
         await self.set_auth_session(tmp_session, True)
         return True
 
@@ -141,7 +145,7 @@ class Sgo(AsyncObject):
         if not week:
             week = pendulum.now()
         if week.format('dddd') == 'Sunday':
-            week.add(days=1)
+            week = week.add(days=1)
         if year_id is None:
             if self.year_id is None:
                 await self.update_year_id()
@@ -154,8 +158,9 @@ class Sgo(AsyncObject):
                 f"{last_week_day['date'].split('T')[0]}T{last_week_day['lessons'][-1]['endTime']}"
             )
             if week > date_of_last_week_day:
-                week.add(weeks=1)
-                return await self.__timetable(week, year_id)
+                week = week.add(days=2)
+                print(week)
+                return await self.timetable(week, year_id, check)
             else:
                 return resp
         else:

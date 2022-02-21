@@ -2,7 +2,7 @@ import json
 import pathlib
 
 states = json.loads(
-    open(str(pathlib.Path(__file__).parent.resolve()) + '\\city_data.json', 'r', encoding='utf-8').read())
+    open(str(pathlib.Path(__file__).parent.resolve()) + '/city_data.json', 'r', encoding='utf-8').read())
 
 states_name = [state['name'] for state in states]
 
