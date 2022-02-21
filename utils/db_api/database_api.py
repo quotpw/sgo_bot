@@ -73,6 +73,13 @@ class Sql:
             _return=AnswerType.none
         )
 
+    async def set_user_account_id_null(self, user_id):
+        await self.query(
+            "UPDATE users SET account_id = NULL WHERE id = ?",
+            [user_id],
+            _return=AnswerType.none
+        )
+
     async def create_account(self, name, state_id, city_id, org_type, org_id, username, password, session=None):
         return await self.query(
             "INSERT INTO accounts(name, state_id, city_id, org_type, org_id, username, password, session) "

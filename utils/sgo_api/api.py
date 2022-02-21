@@ -108,11 +108,25 @@ class Sgo(AsyncObject):
         await self.set_auth_session(tmp_session, True)
         return True
 
+    async def SecurityWarning_fix(self, warnType, at):
+        self.account['session']['at'] = at
+        await self.set_auth_session(self.account['session'], True)
+        return await(await self.session.post(
+            '/asp/SecurityWarning.asp',
+            data={"warnType": "2", "at": self.account['session']['at']}
+        )).text()
+
     async def school_student_diary(self):
-        return await (await self.session.post(
+        resp = await (await self.session.post(
             '/angular/school/studentdiary/',
             data={'LoginType': '0', 'AT': self.account['session']['at'], 'VER': time()}
         )).text()
+        if '/asp/SecurityWarning.asp' in resp:
+            at = re.findall('name="AT" value="(.*?)"', resp)[0]
+            warn_type = re.findall('name="WarnType" value="(.*?)"', resp)[0]
+            return await self.SecurityWarning_fix(warn_type, at)
+        else:
+            return resp
 
     async def check_sess(self):
         student_diary = await self.school_student_diary()
@@ -159,7 +173,6 @@ class Sgo(AsyncObject):
             )
             if week > date_of_last_week_day:
                 week = week.add(days=2)
-                print(week)
                 return await self.timetable(week, year_id, check)
             else:
                 return resp

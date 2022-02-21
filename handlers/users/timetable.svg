@@ -3,47 +3,89 @@
 <svg version="1.1" baseProfile="basic" id="Слой_1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1366 768"
 	 xml:space="preserve">
-
+	<style>
+		.homework{
+			font-family: 'JetBrains Mono';
+			font-weight: 400;
+			fill: #444444;
+			font-size: 26px;
+		}
+		.lesson-time{
+			font-family: 'JetBrains Mono';
+			font-weight: 100;
+			fill: #999999;
+			font-size: 24px;
+		}
+		.lines{
+			fill: none;
+			stroke: #000000; 
+			stroke-width: 0.5;
+			stroke-miterlimit: 10;
+		}
+		.header{
+			font-family: 'JetBrains Mono';
+			font-weight: 500;
+			font-size: 27.5px;
+		}
+		.object-name{
+			font-family: 'JetBrains Mono';
+			font-weight: 300;
+			fill: #008AC9;
+			font-size: 28px;
+			font-weight: bold;
+		}
+		.lesson-number{
+			font-family: 'JetBrains Mono';
+			font-weight: 300;
+			font-size: 40px;
+		}
+		.date{
+			font-family: 'JetBrains Mono';
+			font-weight: 600;
+			fill: #FFFFFF;
+			font-size: 40px;
+		}
+	</style>
 <rect fill="#4AA100" width="85" height="768"/>
 <rect x="85" fill="#F5F7ED" width="1281" height="75"/>
 <rect x="85" y="75" fill="#FFFFFF" width="1281" height="693"/>
-<text transform="matrix(5.053215e-16 -1 1 5.053215e-16 55 680)" fill="#FFFFFF" font-size="40px">week_day_date</text>
-<text transform="matrix(1 0 0 1 100 135)" font-size="40px">1</text>
-<text transform="matrix(1 0 0 1 100 235)" font-size="40px">2</text>
-<text transform="matrix(1 0 0 1 100 330)" font-size="40px">3</text>
-<text transform="matrix(1 0 0 1 100 430)" font-size="40px">4</text>
-<text transform="matrix(1 0 0 1 100 530)" font-size="40px">5</text>
-<text transform="matrix(1 0 0 1 100 630)" font-size="40px">6</text>
-<text transform="matrix(1 0 0 1 100 730)" font-size="40px">7</text>
-<text transform="matrix(1 0 0 1 145 115)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName1</text>
-<text transform="matrix(1 0 0 1 145 215)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName2</text>
-<text transform="matrix(1 0 0 1 145 315)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName3</text>
-<text transform="matrix(1 0 0 1 145 415)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName4</text>
-<text transform="matrix(1 0 0 1 145 515)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName5</text>
-<text transform="matrix(1 0 0 1 145 615)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName6</text>
-<text transform="matrix(1 0 0 1 145 715)" fill="#008AC9" font-size="30px" font-weight="bold">subjectName7</text>
-<text transform="matrix(1 0 0 1 100 45)" font-size="27.4127px">УРОК</text>
-<text transform="matrix(1 0 0 1 500 45)" font-size="27.4127px">ДОМАШНЕЕ ЗАДАНИЕ</text>
-<text transform="matrix(1 0 0 1 145 150)" fill="#999999" font-size="29px">startTime1 - endTime1</text>
-<text transform="matrix(1 0 0 1 145 350)" fill="#999999" font-size="29px">startTime3 - endTime3</text>
-<text transform="matrix(1 0 0 1 145 250)" fill="#999999" font-size="29px">startTime2 - endTime2</text>
-<text transform="matrix(1 0 0 1 145 450)" fill="#999999" font-size="29px">startTime4 - endTime4</text>
-<text transform="matrix(1 0 0 1 145 550)" fill="#999999" font-size="29px">startTime5 - endTime5</text>
-<text transform="matrix(1 0 0 1 145 650)" fill="#999999" font-size="29px">startTime6 - endTime6</text>
-<text transform="matrix(1 0 0 1 145 750)" fill="#999999" font-size="29px">startTime7 - endTime7</text>
-<rect x="85.5" y="668.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="100"/>
-<rect x="85.5" y="568.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="100"/>
-<rect x="85.5" y="468.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="100"/>
-<rect x="85.5" y="368.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="100"/>
-<rect x="85.5" y="268.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="100"/>
-<rect x="85.5" y="173.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="95"/>
-<rect x="85.5" y="75.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="1281" height="98"/>
-<rect x="466.5" y="-0.5" fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" width="900" height="769"/>
-<text transform="matrix(1 0 0 1 490 115)" fill="#444444" font-size="29px">assignment1</text>
-<text transform="matrix(1 0 0 1 490 215)" fill="#444444" font-size="29px">assignment2</text>
-<text transform="matrix(1 0 0 1 490 315)" fill="#444444" font-size="29px">assignment3</text>
-<text transform="matrix(1 0 0 1 490 415)" fill="#444444" font-size="29px">assignment4</text>
-<text transform="matrix(1 0 0 1 490 515)" fill="#444444" font-size="29px">assignment5</text>
-<text transform="matrix(1 0 0 1 490 615)" fill="#444444" font-size="29px">assignment6</text>
-<text transform="matrix(1 0 0 1 490 715)" fill="#444444" font-size="29px">assignment7</text>
+<text transform="matrix(5.053215e-16 -1 1 5.053215e-16 55 700)" class="date">week_day_date</text>
+<text transform="matrix(1 0 0 1 100 135)" class="lesson-number">1</text>
+<text transform="matrix(1 0 0 1 100 235)" class="lesson-number">2</text>
+<text transform="matrix(1 0 0 1 100 330)" class="lesson-number">3</text>
+<text transform="matrix(1 0 0 1 100 430)" class="lesson-number">4</text>
+<text transform="matrix(1 0 0 1 100 530)" class="lesson-number">5</text>
+<text transform="matrix(1 0 0 1 100 630)" class="lesson-number">6</text>
+<text transform="matrix(1 0 0 1 100 730)" class="lesson-number">7</text>
+<text transform="matrix(1 0 0 1 145 115)" class="object-name">subjectName1</text>
+<text transform="matrix(1 0 0 1 145 215)" class="object-name">subjectName2</text>
+<text transform="matrix(1 0 0 1 145 315)" class="object-name">subjectName3</text>
+<text transform="matrix(1 0 0 1 145 415)" class="object-name">subjectName4</text>
+<text transform="matrix(1 0 0 1 145 515)" class="object-name">subjectName5</text>
+<text transform="matrix(1 0 0 1 145 615)" class="object-name">subjectName6</text>
+<text transform="matrix(1 0 0 1 145 715)" class="object-name">subjectName7</text>
+<text transform="matrix(1 0 0 1 100 45)" class="header">УРОК</text>
+<text transform="matrix(1 0 0 1 500 45)" class="header">ДОМАШНЕЕ ЗАДАНИЕ</text>
+<text transform="matrix(1 0 0 1 145 150)" class="lesson-time">startTime1 - endTime1</text>
+<text transform="matrix(1 0 0 1 145 350)" class="lesson-time">startTime3 - endTime3</text>
+<text transform="matrix(1 0 0 1 145 250)" class="lesson-time">startTime2 - endTime2</text>
+<text transform="matrix(1 0 0 1 145 450)" class="lesson-time">startTime4 - endTime4</text>
+<text transform="matrix(1 0 0 1 145 550)" class="lesson-time">startTime5 - endTime5</text>
+<text transform="matrix(1 0 0 1 145 650)" class="lesson-time">startTime6 - endTime6</text>
+<text transform="matrix(1 0 0 1 145 750)" class="lesson-time">startTime7 - endTime7</text>
+<rect x="85.5" y="668.5" width="1281" height="100" class="lines"/>
+<rect x="85.5" y="568.5" width="1281" height="100" class="lines"/>
+<rect x="85.5" y="468.5" width="1281" height="100" class="lines"/>
+<rect x="85.5" y="368.5" width="1281" height="100" class="lines"/>
+<rect x="85.5" y="268.5" width="1281" height="100" class="lines"/>
+<rect x="85.5" y="173.5" width="1281" height="95" class="lines"/>
+<rect x="85.5" y="75.5" width="1281" height="98" class="lines"/>
+<rect x="466.5" y="-0.5" width="900" height="769" class="lines"/>
+<text transform="matrix(1 0 0 1 490 115)" class="homework">assignment1</text>
+<text transform="matrix(1 0 0 1 490 215)" class="homework">assignment2</text>
+<text transform="matrix(1 0 0 1 490 315)" class="homework">assignment3</text>
+<text transform="matrix(1 0 0 1 490 415)" class="homework">assignment4</text>
+<text transform="matrix(1 0 0 1 490 515)" class="homework">assignment5</text>
+<text transform="matrix(1 0 0 1 490 615)" class="homework">assignment6</text>
+<text transform="matrix(1 0 0 1 490 715)" class="homework">assignment7</text>
 </svg>

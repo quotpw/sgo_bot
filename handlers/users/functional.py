@@ -35,15 +35,15 @@ async def start_with_account(message: types.Message):
     day_time.subtract(days=1)
     #   /mnt/c/Users/edman/Desktop/sgo_timetable.svg
     svg_photo = open('handlers/users/timetable.svg', encoding='utf-8').read() \
-        .replace('week_day_date', day_time.format('dddd, D MMMM YYYY г.'))
+        .replace('week_day_date', day_time.format('dddd, D MMMM YYYY г.', 'ru'))
 
     for i in range(7):
         ln = i + 1
         try:
             lesson = lessons[i]
             lesson_name = lesson['subjectName']
-            if len(lesson_name) > 14:
-                lesson_name = lesson_name[:14] + '...'
+            if len(lesson_name) > 16:
+                lesson_name = lesson_name[:16] + '...'
             svg_photo = svg_photo \
                 .replace(f'subjectName{ln}', lesson_name) \
                 .replace(f'startTime{ln}', lesson['startTime']) \
@@ -59,7 +59,7 @@ async def start_with_account(message: types.Message):
                         else:
                             first_text += word + " "
                     assignments = f'<tspan x="0">{first_text}</tspan>' \
-                                  f'<tspan x="0" dy="1.25em">{assignments[len(first_text):]}</tspan>'
+                                  f'<tspan x="0" dy="1em">{assignments[len(first_text):]}</tspan>'
                 else:
                     assignments = f'<tspan x="0">{assignments}</tspan>'
                 svg_photo = svg_photo.replace(f'assignment{ln}', assignments)
@@ -68,13 +68,12 @@ async def start_with_account(message: types.Message):
         except:
             svg_photo = svg_photo \
                 .replace(f'subjectName{ln}', '') \
-                .replace(f'startTime{ln}', '') \
-                .replace(f'endTime{ln}', '') \
+                .replace(f'startTime{ln} - endTime{ln}', '') \
                 .replace(f'assignment{ln}', '') \
                 .replace(f'>{ln}<', '><')
 
     with Image(blob=svg_photo.encode('utf-8'), format="svg") as image:
-        await message.reply_photo(image.make_blob("jpg"), protect_content=True)
+        await message.reply_photo(image.make_blob("jpg"))
 
 
 @rate_limit(SGO.RATE_LIMIT, 'average_grades')

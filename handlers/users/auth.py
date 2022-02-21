@@ -22,6 +22,24 @@ async def alredy_authenticated(message: types.Message):
     )
 
 
+@dp.message_handler(user_with_account=True, commands=['logout'])
+async def alredy_authenticated(message: types.Message):
+    user = await database.get_user(user_id=message.chat.id)
+    if len(await database.get_users(account_id=user['account_id'])) > 1:
+        await database.set_user_account_id_null(user['id'])
+        await message.answer(
+            "Аккаунт удален только у вас, т.к другой пользователь этого проэкта все-еще использует бота.",
+            reply_markup=types.ReplyKeyboardRemove()
+        )
+    else:
+        await database.delete_account(id=user['account_id'])
+        await message.answer(
+            "Аккаунт полностью удален из базы проэкта.",
+            reply_markup=types.ReplyKeyboardRemove()
+        )
+    await message.answer("Возвращайся к нам поскорее❤️")
+
+
 @dp.message_handler(user_with_account=False, commands=['auth'])
 async def start_auth(message: types.Message):
     await message.answer("Окей, сейчас начнем авторизацию на sgo.rso23.ru!")
@@ -176,17 +194,18 @@ async def set_password_text(message: types.Message, state: FSMContext):
                 obj.account['password'],
                 obj.account['session']
             )
-            await state.finish()
         else:
             account_id = account_id['id']
         await database.update_user_account_id(message.chat.id, account_id)
+
         await state.finish()
         await start_with_account(message)
     except LoginError:
         await bot.send_message(
             message.chat.id,
             f'Не получилось зайти в аккаунт!\n'
-            f'Введите логин от sgo.rso23.ru!'
+            f'Введите логин от sgo.rso23.ru!',
+            reply_markup=types.ReplyKeyboardMarkup([[types.KeyboardButton('Отмена')]], resize_keyboard=True)
         )
         await SetupAccount.username.set()
     except Exception as err:
