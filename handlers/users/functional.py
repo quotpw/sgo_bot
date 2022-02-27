@@ -1,7 +1,7 @@
+import configcatclient
 from aiogram import types
 from aiogram.dispatcher.filters import Text
 
-from data.config import SGO
 from utils.db_api import database
 from loader import dp
 from utils.sgo_api import Sgo
@@ -9,12 +9,14 @@ import pendulum
 from utils.misc.throttling import rate_limit
 from wand.image import Image
 
+config = configcatclient.create_client('XvnZCMXRUk2AYlhFwpHeCg/0oW9esHgO0iliYuGz8jTcQ')
+
 
 def sort_lessons(elem):
     return elem['startTime']
 
 
-@rate_limit(SGO.RATE_LIMIT, 'timetable')
+@rate_limit(config.get_value('sgo_rate_limit', 0), 'timetable')
 @dp.message_handler(Text('Получить рассписание', ignore_case=True), user_with_account=True)
 async def start_with_account(message: types.Message):
     user = await database.get_user(user_id=message.chat.id)
@@ -76,7 +78,7 @@ async def start_with_account(message: types.Message):
         await message.reply_photo(image.make_blob("jpg"))
 
 
-@rate_limit(SGO.RATE_LIMIT, 'average_grades')
+@rate_limit(config.get_value('sgo_rate_limit', 0), 'average_grades')
 @dp.message_handler(Text('Средние оценки', ignore_case=True), user_with_account=True)
 async def start_with_account(message: types.Message):
     user = await database.get_user(user_id=message.chat.id)

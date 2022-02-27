@@ -1,6 +1,6 @@
 import json
 from typing import Iterable, Any
-
+import configcatclient
 import aiomysql
 
 
@@ -12,8 +12,21 @@ class AnswerType:
 
 
 class Sql:
-    def __init__(self, host, port, user, password, db_name):
-        self.database = {"host": host, "port": port, "user": user, "password": password, "db": db_name}
+    def __init__(self):
+        self.config = configcatclient.create_client_with_auto_poll(
+            'XvnZCMXRUk2AYlhFwpHeCg/Fh8WFi3MgECW2f3eFV2dmQ',
+            on_configuration_changed_callback=self.update_login_data
+        )
+        self.database = None
+
+    def update_login_data(self):
+        self.database = {
+            "host": self.config.get_value('host', 'localhost'),
+            "port": self.config.get_value('port', 3306),
+            "user": self.config.get_value('user', 'root'),
+            "password": self.config.get_value('password', '1337'),
+            "db": self.config.get_value('database', 'sgo_bot')
+        }
 
     async def query(self, query: str, params: Iterable[Any] = None, _return: int = AnswerType.dict, where: dict = None,
                     fetchone=False):

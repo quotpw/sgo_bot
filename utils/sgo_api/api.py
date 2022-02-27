@@ -5,6 +5,7 @@ from asyncio import sleep
 from hashlib import md5
 from time import time
 
+import configcatclient
 import pendulum
 from aiohttp_proxy import ProxyConnector
 from async_class import AsyncObject
@@ -13,9 +14,12 @@ from utils.sgo_api.proxy import Proxy
 from utils.db_api import database
 from aiohttp import CookieJar, ClientSession
 from .exceptions import LoginError
-from data.config import SGO
 
 SGO_URL = 'https://sgo.rso23.ru/'
+
+config = configcatclient.create_client_with_auto_poll(
+    'XvnZCMXRUk2AYlhFwpHeCg/vYXABpXDtUewchkcD7Gg9A'
+)
 
 
 class Sgo(AsyncObject):
@@ -27,13 +31,10 @@ class Sgo(AsyncObject):
         self.account = account
         if isinstance(self.account.get('session'), str):
             self.account['session'] = json.loads(self.account['session'])
-        if proxy is None:
-            proxy = SGO.PROXY
-            proxy_scheme = SGO.PROXY_SCHEME
 
-        if proxy is not None:
+        if config.get_value('use_proxies', False):
             self.proxy = Proxy()
-            self.proxy.parse(proxy, proxy_scheme)
+            self.proxy.parse(config.get_value('proxy', None), config.get_value('proxy_scheme', 'http'))
             self.connector = ProxyConnector.from_url(self.proxy.url)
 
         # init session
@@ -45,7 +46,7 @@ class Sgo(AsyncObject):
 
         self.session = ClientSession(
             SGO_URL,
-            headers={"Referer": SGO_URL},
+            headers={'Referer': SGO_URL},
             connector=self.connector,
             cookie_jar=cookie_jar
         )
@@ -113,7 +114,7 @@ class Sgo(AsyncObject):
         await self.set_auth_session(self.account['session'], True)
         return await(await self.session.post(
             '/asp/SecurityWarning.asp',
-            data={"warnType": "2", "at": self.account['session']['at']}
+            data={'warnType': '2', 'at': self.account['session']['at']}
         )).text()
 
     async def school_student_diary(self):
