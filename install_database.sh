@@ -2,7 +2,7 @@
 
 # Install docker
 apt update
-apt install docker.io
+apt install docker.io -y
 
 # Setup containers
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1337 -d mysql
