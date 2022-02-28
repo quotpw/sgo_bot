@@ -2,7 +2,7 @@
 
 # Install required packages
 apt update
-apt install supervisor python3 python3-dev python3-pip libmagickwand-dev wget unzip
+apt install supervisor python3 python3-dev python3-pip libmagickwand-dev wget unzip -y
 
 # Download fonts from jetbrains suite
 wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip -O fonts.zip
