@@ -14,7 +14,7 @@ unzip -j fonts.zip "fonts/ttf/*" -d "/usr/share/fonts/ttf"
 rm fonts.zip
 
 # Install python dependencies
-pip3 install aiogram aiomysql aiohttp aiohttp_proxy async_class pendulum configcat-client Wand
+pip3 install -r /root/sgo_bot/requirements.txt
 
 # Create task in cron ""
 crontab -l | {

@@ -1,0 +1,9 @@
+aiohttp
+aiohttp_proxy
+configcat-client
+async_class
+aiogram
+aiomysql
+pendulum
+Wand
+sentry_sdk
