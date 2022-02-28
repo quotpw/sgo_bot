@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /root/sgo_bot
-
 # Install required packages
 apt update
 apt install supervisor python3 python3-dev python3-pip libmagickwand-dev wget unzip -y
@@ -25,6 +23,6 @@ crontab -l | {
 } | crontab -
 
 # Configure supervisor and delete conf
-cp supervisord.conf /etc/supervisor/supervisord.conf
-rm supervisord.conf
+cp /root/sgo_bot/supervisord.conf /etc/supervisor/supervisord.conf
+rm /root/sgo_bot/supervisord.conf
 service supervisor restart
