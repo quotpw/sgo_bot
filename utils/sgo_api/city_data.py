@@ -47,9 +47,3 @@ def search_schools(organizations: dict, value):
             if value == organization['id']:
                 ret.append(organization)
     return ret
-
-# city = search_city("Краснод")
-# print(city)
-# org = search_orgs_by_city(city['city'], "Обще")
-# print(org)
-# print(find_school(org['orgs'], '№95'))

@@ -1,13 +1,15 @@
-from typing import Union
+from typing import Union, Optional
+
 from .exceptions import *
+
 
 class Proxy:
     def __init__(self):
-        self.scheme: str = None
-        self.ip: str = None
-        self.port: int = None
-        self.username: str = None
-        self.password: str = None
+        self.scheme: Optional[None] = None
+        self.ip: Optional[None] = None
+        self.port: Optional[None] = None
+        self.username: Optional[None] = None
+        self.password: Optional[None] = None
 
     @property
     def valid(self):

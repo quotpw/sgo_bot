@@ -1,8 +1,8 @@
 import asyncio
 
+from loader import bot
 from utils.db_api import database
 from utils.sgo_api import Sgo
-from loader import bot
 
 homework_typeId = 3
 
@@ -16,6 +16,7 @@ async def new_homework(lesson: dict, account: dict, assigment: dict):
             f'📚 Предмет: <i>{lesson["subjectName"]}</i>\n'
             f'📕 <b>Задание</b>: <code>{assigment["assignmentName"]}</code>'
         )
+        await asyncio.sleep(0.5)
 
 
 async def edited_homework(lesson: dict, account: dict, assigment: dict, old_value: str):
@@ -28,6 +29,7 @@ async def edited_homework(lesson: dict, account: dict, assigment: dict, old_valu
             f'🚫 <b>Старое задание</b>: <code>{old_value}</code>\n'
             f'📕 <b>Новое задание</b>: <code>{assigment["assignmentName"]}</code>'
         )
+        await asyncio.sleep(0.5)
 
 
 async def deleted_homework(lesson: dict, account: dict, old_value: str):
@@ -39,6 +41,7 @@ async def deleted_homework(lesson: dict, account: dict, old_value: str):
             f'🗓 Дата: <code>{lesson["day"].split("T")[0]}</code> (<b>{lesson["startTime"]}</b>)\n'
             f'🚫 Оно было таким: <code>{old_value}</code>'
         )
+        await asyncio.sleep(0.5)
 
 
 async def lesson_handler(lesson: dict, account: dict):

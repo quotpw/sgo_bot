@@ -1,4 +1,3 @@
-import asyncio
 import json
 import re
 from asyncio import sleep
@@ -7,12 +6,12 @@ from time import time
 
 import configcatclient
 import pendulum
+from aiohttp import CookieJar, ClientSession
 from aiohttp_proxy import ProxyConnector
 from async_class import AsyncObject
 
-from utils.sgo_api.proxy import Proxy
 from utils.db_api import database
-from aiohttp import CookieJar, ClientSession
+from utils.sgo_api.proxy import Proxy
 from .exceptions import LoginError
 
 SGO_URL = 'https://sgo.rso23.ru/'
