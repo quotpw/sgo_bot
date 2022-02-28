@@ -1,7 +1,8 @@
 import json
 from typing import Iterable, Any
-import configcatclient
+
 import aiomysql
+import configcatclient
 
 
 class AnswerType:
@@ -18,6 +19,7 @@ class Sql:
             on_configuration_changed_callback=self.update_login_data
         )
         self.database = None
+        self.update_login_data()
 
     def update_login_data(self):
         self.database = {
