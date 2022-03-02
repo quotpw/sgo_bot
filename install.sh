@@ -16,10 +16,10 @@ rm fonts.zip
 # Install python dependencies
 pip3 install -r /root/sgo_bot/requirements.txt
 
-# Create task in cron ""
+# Create task in cron
 crontab -l | {
   cat
-  echo "*/5 * * * * bash /root/sgo_bot/homeworks_listener.sh"
+  echo "*/10 * * * * bash /root/sgo_bot/homeworks_listener.sh"
 } | crontab -
 
 # Configure supervisor and delete conf
