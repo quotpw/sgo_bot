@@ -26,6 +26,7 @@ class UserInBase(BoundFilter):
         if chat_id < 0 and chat_id != int(config.get_value('notify_chat_id', 0)):  # if its group or channel - ignore
             logging.info(f'Ignore user {message.chat.id}')
             return False
+        logging.info(f'Success user {message.chat.id}')
         user = await database.get_user(user_id=chat_id)
         if not user:
             await database.create_user(chat_id)
