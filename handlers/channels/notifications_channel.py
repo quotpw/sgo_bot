@@ -13,6 +13,7 @@ config = configcatclient.create_client(cat_keys.ADMINISTRATION)
 
 @dp.message_handler(chat_id=int(config.get_value('notify_chat_id', 0)))
 async def notifications_from_channel(message: types.Message):
+    print(message)
     users = await database.get_users()
     for user in users:
         try:
