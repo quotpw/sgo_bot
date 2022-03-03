@@ -1,8 +1,15 @@
 import asyncio
 
+import sentry_sdk
+
 from loader import bot
 from utils.db_api import database
 from utils.sgo_api import Sgo
+
+sentry_sdk.init(
+    "https://edf4b3eae7734e05a6309ea09d556a60@o1154088.ingest.sentry.io/6241296",
+    traces_sample_rate=1.0
+)
 
 homework_typeId = 3
 

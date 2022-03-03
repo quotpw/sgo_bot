@@ -158,7 +158,7 @@ class Sgo(AsyncObject):
 
     async def timetable(self, week: pendulum.DateTime = None, year_id=None, check=False):
         if not week:
-            week = pendulum.now()
+            week = pendulum.now('Europe/Moscow')
         if week.format('dddd') == 'Sunday':
             week = week.add(days=1)
         if year_id is None:
