@@ -2,6 +2,8 @@ import logging
 
 import configcatclient
 
+from config import cat_keys
+
 
 def set_logging_level():
     logging.basicConfig(
@@ -11,6 +13,6 @@ def set_logging_level():
 
 
 config = configcatclient.create_client_with_auto_poll(
-    'XvnZCMXRUk2AYlhFwpHeCg/itO-I7i0t0mtzJ1BBqum3A',
+    cat_keys.CODE,
     on_configuration_changed_callback=set_logging_level
 )

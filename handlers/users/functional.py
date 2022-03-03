@@ -1,15 +1,16 @@
 import configcatclient
+import pendulum
 from aiogram import types
 from aiogram.dispatcher.filters import Text
-
-from utils.db_api import database
-from loader import dp
-from utils.sgo_api import Sgo
-import pendulum
-from utils.misc.throttling import rate_limit
 from wand.image import Image
 
-config = configcatclient.create_client('XvnZCMXRUk2AYlhFwpHeCg/0oW9esHgO0iliYuGz8jTcQ')
+import config
+from loader import dp
+from utils.db_api import database
+from utils.misc.throttling import rate_limit
+from utils.sgo_api import Sgo
+
+config = configcatclient.create_client(config.cat_keys.TELEGRAM)
 
 
 def sort_lessons(elem):

@@ -5,10 +5,10 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
 from handlers.users.start import start_with_account
+from loader import bot
 from loader import dp
 from states import SetupAccount
 from utils import sgo_api as city_data
-from loader import bot
 from utils.db_api import database
 from utils.sgo_api import Sgo
 from utils.sgo_api.exceptions import LoginError
@@ -24,15 +24,12 @@ async def alredy_authenticated(message: types.Message):
 
 @dp.message_handler(user_with_account=True, commands=['logout'])
 async def alredy_authenticated(message: types.Message):
-    user = await database.get_user(user_id=message.chat.id)
-    if len(await database.get_users(account_id=user['account_id'])) > 1:
-        await database.set_user_account_id_null(user['id'])
+    if await database.delete_user(message.chat.id):
         await message.answer(
             "Аккаунт удален только у вас, т.к другой пользователь этого проэкта все-еще использует бота.",
             reply_markup=types.ReplyKeyboardRemove()
         )
     else:
-        await database.delete_account(id=user['account_id'])
         await message.answer(
             "Аккаунт полностью удален из базы проэкта.",
             reply_markup=types.ReplyKeyboardRemove()

@@ -10,6 +10,7 @@ from aiohttp import CookieJar, ClientSession
 from aiohttp_proxy import ProxyConnector
 from async_class import AsyncObject
 
+from config import cat_keys
 from utils.db_api import database
 from utils.sgo_api.proxy import Proxy
 from .exceptions import LoginError
@@ -17,7 +18,7 @@ from .exceptions import LoginError
 SGO_URL = 'https://sgo.rso23.ru/'
 
 config = configcatclient.create_client_with_auto_poll(
-    'XvnZCMXRUk2AYlhFwpHeCg/vYXABpXDtUewchkcD7Gg9A'
+    cat_keys.SGO
 )
 
 

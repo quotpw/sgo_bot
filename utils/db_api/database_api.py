@@ -4,6 +4,8 @@ from typing import Iterable, Any
 import aiomysql
 import configcatclient
 
+import config
+
 
 class AnswerType:
     none = 0
@@ -15,7 +17,7 @@ class AnswerType:
 class Sql:
     def __init__(self):
         self.config = configcatclient.create_client_with_auto_poll(
-            'XvnZCMXRUk2AYlhFwpHeCg/Fh8WFi3MgECW2f3eFV2dmQ',
+            config.cat_keys.MYSQL,
             on_configuration_changed_callback=self.update_login_data
         )
         self.database = None
@@ -162,3 +164,12 @@ class Sql:
             [value, homework_id, account_id],
             _return=AnswerType.none
         )
+
+    async def delete_user(self, user_id):
+        user = await self.get_user(user_id=user_id)
+        if len(await self.get_users(account_id=user['account_id'])) > 1:
+            await self.set_user_account_id_null(user['id'])
+            return False
+        else:
+            await self.delete_account(id=user['account_id'])
+            return True
