@@ -1,8 +1,13 @@
 from typing import Union
 
+import configcatclient
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram.types import Message, CallbackQuery
+
+from config import cat_keys
 from utils.db_api import database
+
+config = configcatclient.create_client(cat_keys.ADMINISTRATION)
 
 
 class UserInBase(BoundFilter):
@@ -17,7 +22,7 @@ class UserInBase(BoundFilter):
             chat_id = message.chat.id
         else:
             chat_id = message.message.chat.id
-        if chat_id < 0:  # if its group - ignore
+        if chat_id < 0 and chat_id != int(config.get_value('notify_chat_id', 0)):  # if its group or channel - ignore
             return False
         user = await database.get_user(user_id=chat_id)
         if not user:
