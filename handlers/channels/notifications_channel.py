@@ -11,7 +11,7 @@ from utils.db_api import database
 config = configcatclient.create_client(cat_keys.ADMINISTRATION)
 
 
-@dp.message_handler(chat_id=5018116190)
+@dp.message_handler(chat_id=int(config.get_value('notify_chat_id', 0)))
 async def notifications_from_channel(message: types.Message):
     users = await database.get_users()
     for user in users:
