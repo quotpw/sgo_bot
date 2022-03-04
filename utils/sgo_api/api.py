@@ -11,11 +11,10 @@ from aiohttp_proxy import ProxyConnector
 from async_class import AsyncObject
 
 from config import cat_keys
+from config.sgo import SGO_URL
 from utils.db_api import database
 from utils.sgo_api.proxy import Proxy
 from .exceptions import LoginError
-
-SGO_URL = 'https://sgo.rso23.ru/'
 
 config = configcatclient.create_client_with_auto_poll(
     cat_keys.SGO

@@ -76,6 +76,30 @@ class Sql:
             where=kwargs
         )
 
+    async def get_users_with_notify(self, **kwargs):
+        return await self.query(
+            'SELECT * FROM users WHERE homework_notifications or mark_notifications',
+            where=kwargs
+        )
+
+    async def get_users_not_cached_with_notify(self, **kwargs):
+        return await self.query(
+            'SELECT * FROM users WHERE homework_notifications or mark_notifications',
+            where=kwargs
+        )
+
+    async def get_users_with_homework_notify(self, **kwargs):
+        return await self.query(
+            'SELECT * FROM users WHERE homework_notifications',
+            where=kwargs
+        )
+
+    async def get_users_with_mark_notify(self, **kwargs):
+        return await self.query(
+            'SELECT * FROM users WHERE mark_notifications',
+            where=kwargs
+        )
+
     async def create_user(self, user_id):
         await self.query(
             "INSERT INTO users(user_id) VALUES(?)",
@@ -87,6 +111,14 @@ class Sql:
         await self.query(
             "UPDATE users SET account_id = ? WHERE user_id = ?",
             [account_id, user_id],
+            _return=AnswerType.none
+        )
+
+    async def set_account_cached(self, cached, **kwargs):
+        await self.query(
+            "UPDATE accounts SET cached = ?",
+            [cached],
+            where=kwargs,
             _return=AnswerType.none
         )
 
@@ -173,3 +205,31 @@ class Sql:
         else:
             await self.delete_account(id=user['account_id'])
             return True
+
+    async def get_marks(self, **kwargs):
+        return await self.query(
+            "SELECT * FROM marks",
+            where=kwargs
+        )
+
+    async def delete_marks(self, **kwargs):
+        await self.query(
+            "DELETE FROM marks",
+            where=kwargs,
+            _return=AnswerType.none
+        )
+
+    async def update_mark(self, mark, **kwargs):
+        await self.query(
+            "UPDATE marks SET mark = ?",
+            [mark],
+            where=kwargs,
+            _return=AnswerType.none
+        )
+
+    async def create_mark(self, account_id, class_meeting_id, assigment_id, mark):
+        await self.query(
+            "INSERT INTO marks(account_id, class_meeting_id, assigment_id, mark) VALUES(?, ?, ?, ?)",
+            [account_id, class_meeting_id, assigment_id, mark],
+            _return=AnswerType.none
+        )

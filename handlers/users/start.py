@@ -1,9 +1,13 @@
 from aiogram import types
-from utils.db_api import database
+
 from loader import dp, bot
+from utils.db_api import database
 
 menu_markup = types.ReplyKeyboardMarkup(
-    [[types.KeyboardButton("Получить рассписание"), types.KeyboardButton("Средние оценки")]],
+    [
+        [types.KeyboardButton("Получить рассписание"), types.KeyboardButton("Средние оценки")],
+        [types.KeyboardButton("Настройки")]
+    ],
     resize_keyboard=True
 )
 

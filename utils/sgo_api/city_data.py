@@ -1,14 +1,25 @@
 import json
 import pathlib
+import re
+
+from config.sgo import MATCH_SENSORE
+
+
+def delete_censored_symbols(text):
+    return re.sub(MATCH_SENSORE, '', text)
+
 
 states = json.loads(
-    open(str(pathlib.Path(__file__).parent.resolve()) + '/city_data.json', 'r', encoding='utf-8').read())
+    delete_censored_symbols(
+        open(str(pathlib.Path(__file__).parent.resolve()) + '/city_data.json', 'r', encoding='utf-8').read()
+    )
+)
 
 states_name = [state['name'] for state in states]
 
 
 def search_state(value: str):
-    value = value.lower()
+    value = delete_censored_symbols(value.lower())
     for state in states:
         if value in str(state['name']).lower():
             return state
@@ -19,7 +30,7 @@ def get_city_names(state_name):
 
 
 def search_city(value: str):
-    value = value.lower()
+    value = delete_censored_symbols(value.lower())
     ret = []
     for state in states:
         for city in state['cities']:
@@ -29,7 +40,7 @@ def search_city(value: str):
 
 
 def search_orgs_by_city(city: dict, org_name: str):
-    org_name = org_name.lower()
+    org_name = delete_censored_symbols(org_name.lower())
     for orgs in city['oo_types']:
         if org_name in orgs['name'].lower():
             return {'id': orgs['id'], 'orgs': orgs['organizations']}
@@ -38,7 +49,7 @@ def search_orgs_by_city(city: dict, org_name: str):
 def search_schools(organizations: dict, value):
     ret = []
     if isinstance(value, str):
-        value = value.lower()
+        value = delete_censored_symbols(value.lower())
         for organization in organizations:
             if value in organization['name'].lower():
                 ret.append(organization)
