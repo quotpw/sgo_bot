@@ -44,7 +44,6 @@ async def start_with_account(message: types.Message):
             lessons = day['lessons']
             break
 
-    print(lessons)
     svg_photo = open('handlers/users/timetable.svg', encoding='utf-8').read() \
         .replace('week_day_date', day_time.format('dddd, D MMMM YYYY г.', 'ru'))
 
