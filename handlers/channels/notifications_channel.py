@@ -22,7 +22,7 @@ async def notifications_from_channel(message: types.Message):
         if user['user_id'] == notify_chat_id:
             continue
         try:
-            await bot.forward_message(user['user_id'], message.chat.id, message.message_id)
+            await bot.forward_message(user['user_id'], message.chat.id, message.message_id, disable_notification=True)
             sent += 1
         except aiogram.utils.exceptions.BotBlocked:
             await database.delete_user(user['user_id'])
