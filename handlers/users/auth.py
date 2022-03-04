@@ -11,7 +11,7 @@ from states import SetupAccount
 from utils import sgo_api as city_data
 from utils.db_api import database
 from utils.sgo_api import Sgo
-from utils.sgo_api.exceptions import LoginError
+from utils.sgo_api.exceptions import LoginError, SuperAccount
 
 
 @dp.message_handler(user_with_account=True, commands=['auth'])
@@ -205,14 +205,24 @@ async def set_password_text(message: types.Message, state: FSMContext):
             reply_markup=types.ReplyKeyboardMarkup([[types.KeyboardButton('Отмена')]], resize_keyboard=True)
         )
         await SetupAccount.username.set()
+    except SuperAccount:
+        await bot.send_message(
+            message.chat.id,
+            f'Увы, но бот сделан для аккаунтов учеников!\n'
+            f'Войдите в sgo.rso23.ru для ученического аккаунта!',
+            reply_markup=types.ReplyKeyboardRemove()
+        )
+        await state.finish()
     except Exception as err:
         print(err)
         await bot.send_message(
             message.chat.id,
             'Произошла непредвиденная ошибка!\n'
             'Повторите процедуру с начала!\n'
-            '/auth'
+            '/auth',
+            reply_markup=types.ReplyKeyboardRemove()
         )
+        await state.finish()
 # try:
 #     sgo_obj = await Sgo(username, password)
 #     login_resp = await sgo_obj.login(user.state_id, user.city_id, user.org_type_id, user.org_id)

@@ -20,3 +20,7 @@ class SgoRso23(Exception):
 
 class LoginError(SgoRso23):
     pass
+
+
+class SuperAccount(SgoRso23):
+    pass

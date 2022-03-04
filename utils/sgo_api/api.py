@@ -14,7 +14,7 @@ from config import cat_keys
 from config.sgo import SGO_URL
 from utils.db_api import database
 from utils.sgo_api.proxy import Proxy
-from .exceptions import LoginError
+from .exceptions import LoginError, SuperAccount
 
 config = configcatclient.create_client_with_auto_poll(
     cat_keys.SGO
@@ -102,6 +102,9 @@ class Sgo(AsyncObject):
             return False
 
         tmp_session = await auth_resp.json()
+        if tmp_session['accountInfo']['userRoles']:
+            raise SuperAccount(tmp_session['accountInfo']['userRoles'])
+
         tmp_session['cookies'] = {}
         for cookie in self.session.cookie_jar:
             tmp_session['cookies'][cookie.key] = cookie.value
