@@ -5,7 +5,7 @@ from utils.db_api import database
 
 menu_markup = types.ReplyKeyboardMarkup(
     [
-        [types.KeyboardButton("Получить рассписание"), types.KeyboardButton("Средние оценки")],
+        [types.KeyboardButton("Получить расписание"), types.KeyboardButton("Средние оценки")],
         [types.KeyboardButton("Настройки")]
     ],
     resize_keyboard=True

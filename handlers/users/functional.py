@@ -21,7 +21,7 @@ def sort_lessons(elem):
 
 
 @rate_limit(config.get_value('sgo_rate_limit', 0), 'timetable')
-@dp.message_handler(Text('Получить рассписание', ignore_case=True), user_with_account=True)
+@dp.message_handler(Text('Получить расписание', ignore_case=True), user_with_account=True)
 async def start_with_account(message: types.Message):
     user = await database.get_user(user_id=message.chat.id)
     await message.answer("Ожидайте, подготавливаю данные.")
