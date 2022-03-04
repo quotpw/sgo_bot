@@ -39,7 +39,7 @@ async def start_with_account(message: types.Message):
         last_lesson.sort(key=sort_lessons)
         last_lesson = last_lesson[-1]
 
-        day_time = pendulum.parse(day['date'].replace('00:00:00', '') + last_lesson['endTime'])
+        day_time = pendulum.parse(day['date'].replace('00:00:00', '') + last_lesson['endTime'], tz='Europe/Moscow')
         if date < day_time:
             lessons = day['lessons']
             break
