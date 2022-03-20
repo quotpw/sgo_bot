@@ -2,6 +2,7 @@ import asyncio
 
 import sentry_sdk
 
+from handlers.users.start import menu_markup
 from loader import bot
 from utils.db_api import database
 from utils.sgo_api import Sgo
@@ -25,7 +26,8 @@ async def new_homework(lesson: dict, account: dict, assigment: dict):
             '🤖 Привет, у тебя новое домашнее задание!\n'
             f'🗓 Дата: <code>{normalise_date(lesson["day"])}</code> (<b>{lesson["startTime"]}</b>)\n'
             f'📚 Предмет: <i>{lesson["subjectName"]}</i>\n'
-            f'📕 <b>Задание</b>: <code>{assigment["assignmentName"]}</code>'
+            f'📕 <b>Задание</b>: <code>{assigment["assignmentName"]}</code>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
@@ -38,7 +40,8 @@ async def edited_homework(lesson: dict, account: dict, assigment: dict, old_valu
             f'🗓 Дата: <code>{normalise_date(lesson["day"])}</code> (<b>{lesson["startTime"]}</b>)\n'
             f'📚 Предмет: <i>{lesson["subjectName"]}</i>\n'
             f'🚫 <b>Старое задание</b>: <code>{old_value}</code>\n'
-            f'📕 <b>Новое задание</b>: <code>{assigment["assignmentName"]}</code>'
+            f'📕 <b>Новое задание</b>: <code>{assigment["assignmentName"]}</code>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
@@ -50,7 +53,8 @@ async def deleted_homework(lesson: dict, account: dict, old_value: str):
             '🤖 Привет, домашку можно не учить!\n'
             f'👩‍🏫 Учитель по <i>{lesson["subjectName"]}</i> удалил домашнее задание :)\n'
             f'🗓 Дата: <code>{normalise_date(lesson["day"])}</code> (<b>{lesson["startTime"]}</b>)\n'
-            f'🚫 Оно было таким: <code>{old_value}</code>'
+            f'🚫 Оно было таким: <code>{old_value}</code>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
@@ -95,7 +99,8 @@ async def new_mark(lesson: dict, account: dict, assigment: dict):
             f'🗓 Дата: <code>{normalise_date(lesson["day"])}</code> (<b>{lesson["startTime"]}</b>)\n'
             f'📚 Предмет: <i>{lesson["subjectName"]}</i>\n'
             f'📕 За что: <code>{assigment["assignmentName"]}</code>\n'
-            f'🔰 <b>Оценка</b>: <i>{assigment["mark"]["mark"]}</i>'
+            f'🔰 <b>Оценка</b>: <i>{assigment["mark"]["mark"]}</i>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
@@ -109,7 +114,8 @@ async def edited_mark(lesson: dict, account: dict, assigment: dict, old_value: s
             f'📚 Предмет: <i>{lesson["subjectName"]}</i>\n'
             f'📕 За что: <code>{assigment["assignmentName"]}</code>\n'
             f'🚫 <b>Старая оценка</b>: <i>{old_value}</i>\n'
-            f'🔰 <b>Новая оценка</b>: <i>{assigment["mark"]["mark"]}</i>'
+            f'🔰 <b>Новая оценка</b>: <i>{assigment["mark"]["mark"]}</i>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
@@ -121,7 +127,8 @@ async def deleted_mark(lesson: dict, account: dict, old_value: int):
             f'🤖 Привет, тебе удалили оценку{" 😟" if old_value >= 4 else ".."}\n'
             f'👩‍🏫 Учитель по <i>{lesson["subjectName"]}</i> тебе оценку.\n'
             f'🗓 Дата: <code>{normalise_date(lesson["day"])}</code> (<b>{lesson["startTime"]}</b>)\n'
-            f'🚫 Она была такой: <code>{old_value}</code>'
+            f'🚫 Она была такой: <code>{old_value}</code>',
+            reply_markup=menu_markup
         )
         await asyncio.sleep(0.5)
 
