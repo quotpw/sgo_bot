@@ -1,4 +1,5 @@
 import asyncio
+import time
 
 import sentry_sdk
 
@@ -206,4 +207,6 @@ async def main():
 
 
 # if __name__ == '__main__':
-asyncio.run(main())
+while True:
+    asyncio.run(main())
+    time.sleep(600)
