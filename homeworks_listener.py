@@ -2,8 +2,8 @@ import asyncio
 import time
 
 import sentry_sdk
+from aiogram import types
 
-from handlers.users.start import menu_markup
 from loader import bot
 from utils.db_api import database
 from utils.sgo_api import Sgo
@@ -14,6 +14,14 @@ sentry_sdk.init(
 )
 
 homework_typeId = 3
+
+menu_markup = types.ReplyKeyboardMarkup(
+    [
+        [types.KeyboardButton("Получить расписание"), types.KeyboardButton("Средние оценки")],
+        [types.KeyboardButton("Настройки")]
+    ],
+    resize_keyboard=True
+)
 
 
 def normalise_date(date: str):
