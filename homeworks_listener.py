@@ -214,7 +214,6 @@ async def main():
             await database.set_account_cached(True, id=account['id'])
 
 
-# if __name__ == '__main__':
-while True:
+if __name__ == '__main__':
+# while True:
     asyncio.run(main())
-    time.sleep(600)
